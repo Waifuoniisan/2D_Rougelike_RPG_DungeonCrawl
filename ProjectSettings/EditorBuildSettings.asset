@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/CaveLvL1.unity
+    guid: 238f7d62a84aa034ab049694725c4591
+  - enabled: 1
+    path: Assets/Scenes/CaveLvL2.unity
+    guid: d752cd07884990e4c80a76915bb3aba9
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: b25341dfd9148794a9ab021d9cdc17ae
+  - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: e90d89f86eb7ea14ba679cb2e7a3c93d
+  - enabled: 1
+    path: Assets/Scenes/HowToPlay.unity
+    guid: 2dea0596295068543acb79e7fe0f1142
+  - enabled: 1
+    path: Assets/Scenes/OpenArea.unity
+    guid: 5a71765c9370dab4ea7866e324f421f4
+  - enabled: 1
+    path: Assets/Scenes/GameOver 1.unity
+    guid: eb90b1cea21b66a49be696115630fa3d
+  m_configObjects: {}
