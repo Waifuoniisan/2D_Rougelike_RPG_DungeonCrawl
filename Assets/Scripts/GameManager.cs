@@ -1,46 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //StaticVars
-    public static PlayerScript Player;
+    public static GameManager Instance;
 
-    public static GameManager Manager;
-    //Scripts
-    public HealthBarScript HealthBar;
-    
-    //Int
-    // public int maxHealth = 10;
-    
-    
-    
-    // Start is called before the first frame update
-    void Start()
+    public int numCoins;
+    public int numGems;
+
+    private void Start()
     {
-        GameManager.Manager = this;
-        
-        // PlayerScript.player.currenthealth = PlayerScript.player.maxHealth;
-        // HealthBar.SetMaxHealth(PlayerScript.player.maxHealth);
-        
-        
+        Instance = GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Debug.Log(Instance.numCoins);
+        Debug.Log(Instance.numGems);
     }
-    // public void TakeDamage(int DamageAmount)
-    // {
-    //     PlayerScript.player.currenthealth -= DamageAmount;
-    //     
-    //     if (PlayerScript.player.currenthealth <= 0)
-    //     {
-    //         Destroy(PlayerScript.player);
-    //     }
-    // }
-   
+
+    public void IncreaseCoins()
+    {
+        Instance.numCoins++;
+    }
+
+    public void IncreaseGems()
+    {
+        Instance.numGems++;
+    }
+
+    public void SaveToDisk()
+    {
+        // have the code to save your info to disk
+    }
+
+    public void LoadFromDisk()
+    {
+        // have the code to load info from disk
+    }
 
 }

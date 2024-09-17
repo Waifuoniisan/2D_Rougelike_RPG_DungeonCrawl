@@ -23,7 +23,9 @@ public class GoldCoinScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Collect();
+            //Collect();
+            GameManager.Instance.IncreaseCoins();
+            Destroy(gameObject);
         }
     }
 

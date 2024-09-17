@@ -50,6 +50,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         Character.StatSheet = this;
+        DontDestroyOnLoad(this);
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<GameObject>();
         SR = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         CurrentHealth = MaxHealth;

@@ -25,7 +25,9 @@ public class GemScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Collect();
+            //Collect();
+            GameManager.Instance.IncreaseGems();
+            Destroy(gameObject);
         }
     }
 

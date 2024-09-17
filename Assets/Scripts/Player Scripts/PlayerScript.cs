@@ -79,15 +79,16 @@ public class PlayerScript : MonoBehaviour
         PlayerScript.player = this; 
         DontDestroyOnLoad(this);
         Cointxt = GameObject.FindGameObjectWithTag("GolfCoin").GetComponent<TextMeshProUGUI>();
-        Cointxt.text = PlayerPrefs.GetInt("Currency").ToString();
         Gemtxt = GameObject.FindGameObjectWithTag("GemCoin").GetComponent<TextMeshProUGUI>();
-        Gemtxt.text = PlayerPrefs.GetInt("Currency").ToString();
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        Gemtxt.text = GameManager.Instance.numGems.ToString();
+        Cointxt.text = GameManager.Instance.numCoins.ToString();
+        
         Vector2 move = PlayerRB.velocity;
         CharacterAction a = CharacterAction.Idle;
         
