@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,8 @@ public class PlayerScript : MonoBehaviour
     //Floats
     public float speed = 5f;
     
-    //TimeSlates
+    //Vectors
+    private Vector2 Mousepos;
     
     
     //Transform
@@ -86,55 +88,68 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Gem and coin text convert to string
+
         Gemtxt.text = GameManager.Instance.numGems.ToString();
         Cointxt.text = GameManager.Instance.numCoins.ToString();
+
+        #endregion
+
+        #region Tracking Mouse positioon
+
+         var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = quaternion.AxisAngle(Vector3.up, angle);
+        // Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // transform.up = mousePos - new Vector2(transform.position.x, transform.position.y);
+        #endregion
         
         Vector2 move = PlayerRB.velocity;
         CharacterAction a = CharacterAction.Idle;
         
-        #region Movement Code
+        #region Movement Code(using arrow Keys)
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            move.x = -speed;
-            SetDirection(Direction.Left);
-            a = CharacterAction.Walking;
-
-        }
-        
-
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            move.x = speed;
-            SetDirection(Direction.Right);
-            a = CharacterAction.Walking;
-        }
-        else
-        {
-            move.x = 0;
-        }
-        
-
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            move.y = speed;
-            SetDirection(Direction.Back);
-            a = CharacterAction.Walking;
-        }
-        
-
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            move.y = -speed;
-            SetDirection(Direction.Front);
-            a = CharacterAction.Walking;
-        }
-        else
-        {
-            move.y = 0;
-        }
+        // if (Input.GetKey(KeyCode.LeftArrow))
+        // {
+        //     move.x = -speed;
+        //     SetDirection(Direction.Left);
+        //     a = CharacterAction.Walking;
+        //
+        // }
+        //
+        // else if (Input.GetKey(KeyCode.RightArrow))
+        // {
+        //     move.x = speed;
+        //     SetDirection(Direction.Right);
+        //     a = CharacterAction.Walking;
+        // }
+        // else
+        // {
+        //     move.x = 0;
+        // }
+        //
+        //
+        // if (Input.GetKey(KeyCode.UpArrow))
+        // {
+        //     move.y = speed;
+        //     SetDirection(Direction.Back);
+        //     a = CharacterAction.Walking;
+        // }
+        //
+        //
+        // else if (Input.GetKey(KeyCode.DownArrow))
+        // {
+        //     move.y = -speed;
+        //     SetDirection(Direction.Front);
+        //     a = CharacterAction.Walking;
+        // }
+        // else
+        // {
+        //     move.y = 0;
+        // }
 
         #endregion
+        
         #region Attack Code
 
         if (Input.GetKeyDown(KeyCode.Z))
