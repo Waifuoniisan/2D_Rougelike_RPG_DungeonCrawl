@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     public float speed = 5f;
     
     //Vectors
-    private Vector2 Mousepos;
+    //private Vector2 Mousepos;
     
     
     //Transform
@@ -53,6 +53,8 @@ public class PlayerScript : MonoBehaviour
 
     public static TextMeshProUGUI Cointxt;
     public static TextMeshProUGUI Gemtxt;
+
+    public Camera mainCamera;
     #endregion
 
 
@@ -96,10 +98,18 @@ public class PlayerScript : MonoBehaviour
         #endregion
 
         #region Tracking Mouse positioon
-
-         var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = quaternion.AxisAngle(Vector3.up, angle);
+        
+        //Not finished but used view forums and so on ****saved on favs in the page
+        // Camera.main.WorldToScreenPoint(transform.position);
+        // Vector2 localPosition = Input.mousePosition - (Camera.main.WorldToScreenPoint(transform.position));
+        // float angle = (float)Mathf.Atan2(localPosition.y, localPosition.x) * Mathf.Rad2Deg - 90;
+        
+        //missing something
+        //  var direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        //  var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // transform.rotation = quaternion.AxisAngle(Vector3.up, angle);
+        
+        //semi ok
         // Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // transform.up = mousePos - new Vector2(transform.position.x, transform.position.y);
         #endregion
