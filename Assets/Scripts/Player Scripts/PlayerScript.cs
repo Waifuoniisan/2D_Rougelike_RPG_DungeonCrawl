@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-
+using static SkillTree;
+using static Skills;
 public class PlayerScript : MonoBehaviour
 {
   
@@ -17,21 +18,18 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody2D PlayerRB;
    
     //Int
-   
     
     //Animator
     public Animator PlayerAnim;
     
     //Floats
     public float speed = 5f;
-    
+    public float dashDistance = 5f;
     //Vectors
     //private Vector2 Mousepos;
     
-    
     //Transform
     public Transform ProjectileSpawnPoint;
-    
     
     //Gameobject
     public GameObject Arrow;
@@ -76,11 +74,11 @@ public class PlayerScript : MonoBehaviour
    
     #endregion
  
-    
+    private void Awake() => player = this;
     // Start is called before the first frame update
     void Start()
     {
-        PlayerScript.player = this; 
+        
         DontDestroyOnLoad(this);
         Cointxt = GameObject.FindGameObjectWithTag("GolfCoin").GetComponent<TextMeshProUGUI>();
         Gemtxt = GameObject.FindGameObjectWithTag("GemCoin").GetComponent<TextMeshProUGUI>();
@@ -119,88 +117,106 @@ public class PlayerScript : MonoBehaviour
         
         #region Movement Code(using arrow Keys)
 
-        // if (Input.GetKey(KeyCode.LeftArrow))
-        // {
-        //     move.x = -speed;
-        //     SetDirection(Direction.Left);
-        //     a = CharacterAction.Walking;
-        //
-        // }
-        //
-        // else if (Input.GetKey(KeyCode.RightArrow))
-        // {
-        //     move.x = speed;
-        //     SetDirection(Direction.Right);
-        //     a = CharacterAction.Walking;
-        // }
-        // else
-        // {
-        //     move.x = 0;
-        // }
-        //
-        //
-        // if (Input.GetKey(KeyCode.UpArrow))
-        // {
-        //     move.y = speed;
-        //     SetDirection(Direction.Back);
-        //     a = CharacterAction.Walking;
-        // }
-        //
-        //
-        // else if (Input.GetKey(KeyCode.DownArrow))
-        // {
-        //     move.y = -speed;
-        //     SetDirection(Direction.Front);
-        //     a = CharacterAction.Walking;
-        // }
-        // else
-        // {
-        //     move.y = 0;
-        // }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            move.x = -speed;
+            SetDirection(Direction.Left);
+            a = CharacterAction.Walking;
+        
+        }
+        
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            move.x = speed;
+            SetDirection(Direction.Right);
+            a = CharacterAction.Walking;
+        }
+        else
+        {
+            move.x = 0;
+        }
+        
+        
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            move.y = speed;
+            SetDirection(Direction.Back);
+            a = CharacterAction.Walking;
+        }
+        
+        
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            move.y = -speed;
+            SetDirection(Direction.Front);
+            a = CharacterAction.Walking;
+        }
+        else
+        {
+            move.y = 0;
+        }
+        
+        //attkSkills.DashUnlcoked();
 
         #endregion
         
         #region Attack Code
+        
+        attkSkills.AttackUnlocked();
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            a = CharacterAction.Attacking;
-
-            if (MyDirection == Direction.Left)
-            {
-                Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0, 0, 90));
-            }
-            
-            if (MyDirection == Direction.Right)
-            {
-                Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0,0,270));
-            }
-            
-            if (MyDirection == Direction.Back)
-            {
-                Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0,0,0));
-            }
-            if (MyDirection == Direction.Front)
-            {
-                Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0,0,180));
-            }
-           
-            
-        }
-
-        #endregion
-
-        if (Input.GetKeyDown(KeyCode.F))
-        { 
-            Character.StatSheet.TakeDamage(1);
-            PlayerAnim.Play("Player_Hit");
-        }
-        SetAction(a);
-        // PlayerRB.velocity = move;
+        //  if (Input.GetKeyDown(KeyCode.Z))
+        // {
+        //     a = CharacterAction.Attacking;
+        //
+        //     if (MyDirection == Direction.Left)
+        //     {
+        //         Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0, 0, 90));
+        //     }
+        //     
+        //     if (MyDirection == Direction.Right)
+        //     {
+        //         Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0,0,270));
+        //     }
+        //     
+        //     if (MyDirection == Direction.Back)
+        //     {
+        //         Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0,0,0));
+        //     }
+        //     if (MyDirection == Direction.Front)
+        //     {
+        //         Instantiate(Arrow, ProjectileSpawnPoint.position, Quaternion.Euler(0,0,180));
+        //     }
+        //    
+        //     
+        // }
+        //
+         #endregion
+        //
+        // if (Input.GetKeyDown(KeyCode.F))
+        // { 
+        //     Character.StatSheet.TakeDamage(1);
+        //     PlayerAnim.Play("Player_Hit");
+        // }
+         SetAction(a);
+         PlayerRB.velocity = move;
         PlayerRB.velocity = Vector2.Lerp(PlayerRB.velocity, move, Time.deltaTime * 7);
 
     }
 
+    // public void Dash(int direction)
+    // {
+    //     Vector2 position = PlayerRB.position;
+    //     Vector2 dashPosition = position + new Vector2(dashDistance * direction, 0);
+    //     RaycastHit2D hit = Physics2D.Raycast(position, Vector2.right * direction, dashDistance, obstacleLayer);
+    //
+    //     if (hit.collider != null)
+    //     {
+    //         dashPosition = hit.point;
+    //     }
+    //     PlayerRB.MovePosition(dashPosition);
+    //     
+    // }
+    
     public void SetDirection(Direction d)
     {
         if (d == MyDirection)
