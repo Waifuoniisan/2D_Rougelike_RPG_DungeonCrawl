@@ -13,8 +13,8 @@ public class PlayerScript : MonoBehaviour
 {
   
     #region Public Var
-    
-    
+
+    public LayerMask obstacle;
     
     //Rigidbody
     public Rigidbody2D PlayerRB;
@@ -194,7 +194,17 @@ public class PlayerScript : MonoBehaviour
         //
         #endregion
          #endregion
-         
+
+         #region DashPowerUp
+
+         if (Input.GetKeyDown(KeyCode.LeftShift))
+         {
+             Dash(1);
+         }
+
+         #endregion
+
+
         // if (Input.GetKeyDown(KeyCode.F))
         // { 
         //     Character.StatSheet.TakeDamage(1);
@@ -211,7 +221,7 @@ public class PlayerScript : MonoBehaviour
     {
         Vector2 position = PlayerRB.position;
         Vector2 dashPosition = position + new Vector2(dashDistance * direction, 0);
-        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.right * direction, dashDistance, obstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.right * direction, dashDistance, obstacle);
     
         if (hit.collider != null)
         {
