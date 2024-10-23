@@ -13,7 +13,9 @@ public class PlayerScript : MonoBehaviour
 {
   
     #region Public Var
-
+    
+    
+    
     //Rigidbody
     public Rigidbody2D PlayerRB;
    
@@ -41,14 +43,12 @@ public class PlayerScript : MonoBehaviour
     public Direction MyDirection;
     public CharacterAction MyAction;
     
+    public static Canvas GPUI;
     public HealthBarScript HealthBar;
     
     public AudioSource As;
-
     public AudioClip Attack;
-
-    public static Canvas GPUI;
-
+    
     public static TextMeshProUGUI Cointxt;
     public static TextMeshProUGUI Gemtxt;
 
@@ -162,8 +162,10 @@ public class PlayerScript : MonoBehaviour
         
         #region Attack Code
         
-        attkSkills.AttackUnlocked();
+        attkSkillTree.AttackUnlocked();
 
+        #region OldAttackCode
+        
         //  if (Input.GetKeyDown(KeyCode.Z))
         // {
         //     a = CharacterAction.Attacking;
@@ -190,32 +192,34 @@ public class PlayerScript : MonoBehaviour
         //     
         // }
         //
+        #endregion
          #endregion
-        //
+         
         // if (Input.GetKeyDown(KeyCode.F))
         // { 
         //     Character.StatSheet.TakeDamage(1);
         //     PlayerAnim.Play("Player_Hit");
         // }
+        
          SetAction(a);
          PlayerRB.velocity = move;
         PlayerRB.velocity = Vector2.Lerp(PlayerRB.velocity, move, Time.deltaTime * 7);
 
     }
 
-    // public void Dash(int direction)
-    // {
-    //     Vector2 position = PlayerRB.position;
-    //     Vector2 dashPosition = position + new Vector2(dashDistance * direction, 0);
-    //     RaycastHit2D hit = Physics2D.Raycast(position, Vector2.right * direction, dashDistance, obstacleLayer);
-    //
-    //     if (hit.collider != null)
-    //     {
-    //         dashPosition = hit.point;
-    //     }
-    //     PlayerRB.MovePosition(dashPosition);
-    //     
-    // }
+    public void Dash(int direction)
+    {
+        Vector2 position = PlayerRB.position;
+        Vector2 dashPosition = position + new Vector2(dashDistance * direction, 0);
+        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.right * direction, dashDistance, obstacleLayer);
+    
+        if (hit.collider != null)
+        {
+            dashPosition = hit.point;
+        }
+        PlayerRB.MovePosition(dashPosition);
+        
+    }
     
     public void SetDirection(Direction d)
     {

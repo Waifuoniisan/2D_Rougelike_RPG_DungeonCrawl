@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static PlayerScript;
+using static Skills;
 public class SkillTree : MonoBehaviour
 {
 
@@ -74,6 +75,84 @@ public class SkillTree : MonoBehaviour
         foreach (var skills in SkillList) skills.UpdateUI();
     }
 
-   
+    #region AttackUnlocked
+    
+    public void AttackUnlocked()
+    { 
+        CharacterAction a = CharacterAction.Idle;
+        
+        // Debug.Log(attkSkillTree.SkillList[0]);
+        // Debug.Log(id);
+        // Debug.Log(attkSkillTree.skillLevels[id]);
+        //id == 0
+        if (SkillList[0] && skillLevels[0] >= 1)
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                a = CharacterAction.Attacking;
 
+                if (player.MyDirection == Direction.Left)
+                {
+                    Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0, 0, 90));
+                }
+            
+                if (player.MyDirection == Direction.Right)
+                {
+                    Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0,0,270));
+                }
+            
+                if (player.MyDirection == Direction.Back)
+                {
+                    Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0,0,0));
+                }
+                if (player.MyDirection == Direction.Front)
+                {
+                    Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0,0,180));
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+        player.SetAction(a);
+    }
+    #endregion
+
+    #region DashUnlocked
+
+    public void DashUnlcoked()
+    {
+        if (SkillList[0] && skillLevels[0] >= 1)
+        {
+            Vector2 move = player.PlayerRB.velocity;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                if (player.MyDirection == Direction.Left)
+                {
+                     move.x = -player.speed * player.dashDistance;
+                }
+            
+                if (player.MyDirection == Direction.Right)
+                {
+                    move.x = player.speed * player.dashDistance;
+                }
+            
+                if (player.MyDirection == Direction.Back)
+                {
+                    move.y = player.speed * player.dashDistance;
+                }
+                if (player.MyDirection == Direction.Front)
+                {
+                    move.y = -player.speed * player.dashDistance;
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    #endregion
 }

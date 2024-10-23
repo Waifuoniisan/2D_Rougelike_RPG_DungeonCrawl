@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Instance.numCoins);
-        Debug.Log(Instance.numGems);
+        //Debug.Log(Instance.numCoins);
+        //Debug.Log(Instance.numGems);
     }
 
     public void IncreaseCoins()

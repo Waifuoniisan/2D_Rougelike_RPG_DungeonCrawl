@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using static SkillTree;
 using Image = UnityEngine.UI.Image;
-using static PlayerScript;
+
 public class Skills : MonoBehaviour
 {
     //This is to assign a number to a skill
@@ -52,75 +52,9 @@ public class Skills : MonoBehaviour
         
     }
     
-    public void AttackUnlocked()
-    {
-        CharacterAction a = CharacterAction.Idle;
-        if (id == 0 && attkSkillTree.skillLevels[id] >= 1)
-        {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                     a = CharacterAction.Attacking;
-
-                    if (player.MyDirection == Direction.Left)
-                    {
-                        Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0, 0, 90));
-                    }
-            
-                    if (player.MyDirection == Direction.Right)
-                    {
-                        Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0,0,270));
-                    }
-            
-                    if (player.MyDirection == Direction.Back)
-                    {
-                        Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0,0,0));
-                    }
-                    if (player.MyDirection == Direction.Front)
-                    {
-                        Instantiate(player.Arrow, player.ProjectileSpawnPoint.position, Quaternion.Euler(0,0,180));
-                    }
-            }
-        }
-        else
-        {
-            return;
-        }
-        player.SetAction(a);
-    }
+    
 
 
-    // public void DashUnlcoked()
-    // {
-    //     if (id == 1 && attkSkillTree.skillLevels[id] >= 1)
-    //     {
-    //         Vector2 move = player.PlayerRB.velocity;
-    //         if (Input.GetKey(KeyCode.LeftShift))
-    //         {
-    //             if (player.MyDirection == Direction.Left)
-    //             {
-    //                  move.x = -player.speed * player.dashPower;
-    //             }
-    //         
-    //             if (player.MyDirection == Direction.Right)
-    //             {
-    //                 move.x = player.speed * player.dashPower;
-    //             }
-    //         
-    //             if (player.MyDirection == Direction.Back)
-    //             {
-    //                 move.y = player.speed * player.dashPower;
-    //             }
-    //             if (player.MyDirection == Direction.Front)
-    //             {
-    //                 move.y = -player.speed * player.dashPower;
-    //             }
-    //             
-    //         }
-    //         else
-    //         {
-    //             return;
-    //         }
-    //     }
-    // }
+   
 
 }
